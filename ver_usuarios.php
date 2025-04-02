@@ -18,7 +18,7 @@ $usuarios = []; // Inicializamos la variable para evitar errores
 
 // Si el usuario es "superadmin", puede ver todos los usuarios
 if ($rol_usuario === 'superadmin') {
-    $stmt = $pdo->prepare("SELECT contador_usuarios, nombre, apellido, rol FROM usuarios WHERE estado = :activo");
+    $stmt = $pdo->prepare("SELECT contador_usuarios, CONCAT(nombre, ' ', apellido) AS nombre, rol FROM usuarios WHERE estado = :activo");
 } 
 // Si es "administrador", solo puede ver "administrador", "vendedor" y "almacenista"
 else if ($rol_usuario === 'administrador') {
@@ -81,6 +81,13 @@ if (isset($stmt)) {
                     <span class="option">Categorias</span>
                 </div>
             </a>
+
+            <a id="" href="ver_clientes.php">
+                <div>
+                    <i class='bx bxs-user-account'></i>
+                    <span class="option">Clientes</span>
+                </div>
+            </a>
             
             <?php if ($_SESSION['rol'] === 'superadmin' || $_SESSION['rol'] === 'administrador') : ?>
                 <a id="" href="ver_usuarios.php">
@@ -112,23 +119,26 @@ if (isset($stmt)) {
         </section>
 
         <section id="datos">
+
+        <input type="text" id="buscarUsuario" placeholder="Busca documento o nombre..." autocomplete="off">
+
             <table id="datos_usuario">
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Apellido</th>
+                        
                         <th>Rol</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                         <th>Info</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tablaUsuarios">
                     <?php if ($usuarios): ?>
                         <?php foreach ($usuarios as $usuario): ?>
                             <tr>
                                 <td><?= htmlspecialchars($usuario->nombre) ?></td>
-                                <td><?= htmlspecialchars($usuario->apellido) ?></td>
+                                
                                 <td><?= htmlspecialchars($usuario->rol) ?></td>
                                 
                                 
@@ -173,6 +183,7 @@ if (isset($stmt)) {
                 </tbody>
             </table>
         </section>
+
          <!-- Modal para mostrar detalles del usuario -->
          <div id="modalUsuario" style="display:none;">
             <div id="contenidoModal">
@@ -192,55 +203,9 @@ if (isset($stmt)) {
     </main>
 
 <script>
-   $(document).ready(function() {
-    // Cuando se haga clic en el ícono para ver más detalles
-    $('.verMasUsuario').on('click', function(e) {
-        e.preventDefault();
-        
-        // Obtiene el contador del proveedor
-        var contadorUsuarios = $(this).data('id');
-        
-        // Hace la solicitud AJAX al servidor
-        $.ajax({
-            url: 'detalle_usuario.php',
-            type: 'POST',
-            data: { contador_usuarios: contadorUsuarios },
-            success: function(data) {
-                // Parsear el JSON recibido
-                var usuario = JSON.parse(data);
-                
-                // Mostrar los datos en el modal
-                $('#tipo_doc').text(usuario.tipo_doc);
-                $('#documento').text(usuario.documento);
-                $('#nombre').text(usuario.nombre);
-                $('#apellido').text(usuario.apellido);
-                $('#fecha_nacimiento').text(usuario.fecha_nacimiento);
-                $('#correo').text(usuario.correo);
-                $('#celular').text(usuario.celular);
-                $('#direccion').text(usuario.direccion);
-                $('#ciudad').text(usuario.ciudad);
-                
-                // Mostrar el modal
-                $('#modalUsuario').fadeIn();
-            }
-        });
-    });
-
-    // Cerrar el modal al hacer clic en la 'X'
-    $('#cerrarModal').on('click', function() {
-        $('#modalUsuario').fadeOut();
-    });
-
-    // Cerrar el modal al hacer clic fuera del contenido
-    $(document).on('click', function(event) {
-        var modal = $('#modalUsuario'); 
-        if (event.target === modal[0]) { // Si se hace clic en el fondo del modal
-            modal.fadeOut();
-        }
-    });
-});
+  
 
 </script>
-
+<script src="js/funciones_ver_usuarios.js"></script>
 </body>
 </html>

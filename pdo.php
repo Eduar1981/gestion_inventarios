@@ -1,7 +1,7 @@
 <?php
 // Conexión a la base de datos en ProFreeHost
 $host = "localhost";  // Servidor de MySQL
-$dbname = "gestion_pink";  // Nombre de tu base de datos
+$dbname = "inventoty_gestion";  // Nombre de tu base de datos
 $username = "root";  // Usuario MySQL
 $password = "";  // Usa la contraseña de tu vPanel (CPanel)
 

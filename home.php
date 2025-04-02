@@ -53,7 +53,7 @@ $total_mes = $pdo->query($sql_mes)->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
-    <title>Principal</title>
+    <title>Document</title>
 </head>
 <body>
 
