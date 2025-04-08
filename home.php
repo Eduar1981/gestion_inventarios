@@ -93,6 +93,15 @@ $total_mes = $pdo->query($sql_mes)->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
                     <span class="option">Clientes</span>
                 </div>
             </a>
+
+            <?php if ($_SESSION['rol'] === 'superadmin' || $_SESSION['rol'] === 'administrador') : ?>
+                <a id="" href="ver_proveedores.php">
+                    <div>
+                        <i class='bx bxs-truck'></i>
+                        <span class="option">Proveedores</span>
+                    </div>
+                </a>
+            <?php endif; ?>
             
             <?php if ($_SESSION['rol'] === 'superadmin' || $_SESSION['rol'] === 'administrador') : ?>
                 <a id="" href="ver_usuarios.php">
