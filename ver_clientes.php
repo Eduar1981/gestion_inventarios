@@ -186,7 +186,6 @@ $clientes = $stmt->fetchAll(PDO::FETCH_OBJ);
         </div>
     </main>
 
-
 <script src="js/funciones_ver_clientes.js"></script>
 </body>
 </html>

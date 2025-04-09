@@ -32,7 +32,7 @@ $proveedores = $stmt->fetchAll(PDO::FETCH_OBJ);
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <script src="js/menu.js"></script>
     <link rel="stylesheet" href="style/css/menu.css">
-    <link rel="stylesheet" href="style/css/ver_clientes.css">
+    <link rel="stylesheet" href="style/css/ver_proveedores.css">
 </head>
 <body>
     <aside class="aside active" id="aside">
@@ -104,9 +104,9 @@ $proveedores = $stmt->fetchAll(PDO::FETCH_OBJ);
                 <?php unset($_SESSION['mensaje']); // Borrar mensaje ?>
             <?php endif; ?>
 
-            <input type="text" id="buscarCliente" placeholder="Busca documento o nombre..." autocomplete="off">
+            <input type="text" id="buscarProveedor" placeholder="Busca documento o nombre..." autocomplete="off">
 
-            <table id="datos_cliente">
+            <table id="datos_proveedor">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -172,17 +172,18 @@ $proveedores = $stmt->fetchAll(PDO::FETCH_OBJ);
             <div id="contenidoModal">
                 <span id="cerrarModal">&times;</span>
                 <h3>Detalles del Proveedor</h3>
+                <p><strong>Nombre Comercial:</strong> <span id="nom_comercial"></span></p>
                 <p><strong>Tipo de Persona:</strong> <span id="tipo_persona"></span></p>
                 <p><strong>Tipo de Documento:</strong> <span id="tipo_documento"></span></p>
                 <p><strong>Documento:</strong> <span id="doc_proveedor"></span></p>
-                <p><strong>Nombre Comercial:</strong> <span id="nom_comercial"></span></p>
                 <p><strong>Telefono Fijo:</strong> <span id="tel_fijo"></span></p>
                 <p><strong>Ciudad:</strong> <span id="ciudad"></span></p>
                 <p><strong>Dirección:</strong> <span id="direccion"></span></p>
+                <p><strong>Factura Numero:</strong> <span id="num_fact_comp"></span></p>
             </div>
         </div>
     </main>
 
-<script src="js/funciones_ver_clientes.js"></script>
+<script src="js/funciones_ver_proveedores.js"></script>
 </body>
 </html>
