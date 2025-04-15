@@ -176,7 +176,7 @@ $clientes = $stmt->fetchAll(PDO::FETCH_OBJ);
                                         <!-- Botón para eliminar -->
                                         <a href="eliminar_cliente.php?contador_clientes=<?= htmlspecialchars($cliente->contador_clientes) ?>" 
                                         title="Eliminar" 
-                                        onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">
+                                        onclick="return confirm('¿Estás seguro de que deseas eliminar este cliente?');">
                                             <i class="lni lni-trash-can"></i>
                                         </a>
                                     <?php else: ?>
@@ -189,7 +189,6 @@ $clientes = $stmt->fetchAll(PDO::FETCH_OBJ);
                                             <i class='bx bx-plus-circle'></i>
                                         </a>
                                     </td>
-
                                         
                                 </td>
                             </tr>
@@ -221,7 +220,6 @@ $clientes = $stmt->fetchAll(PDO::FETCH_OBJ);
             </div>
         </div>
     </main>
-
 
 <script src="js/funciones_ver_clientes.js"></script>
 </body>

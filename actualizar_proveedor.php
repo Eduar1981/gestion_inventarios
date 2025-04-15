@@ -65,4 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: ver_proveedores.php");
     exit();
 }
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> 72767af5e883e4866ae4dfa157f2d66ffef57fe0

@@ -8,7 +8,11 @@ if (isset($_GET['cont_provee'])) {
     $cont_provee = $_GET['cont_provee'];
 
 // Verifica si el usuario tiene permisos de administrador
+<<<<<<< HEAD
 if (!isset($_SESSION['rol']) || ($_SESSION['rol'] !== 'superadmin' && $_SESSION['rol'] !== 'administrador')) {
+=======
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'administrador') {
+>>>>>>> 72767af5e883e4866ae4dfa157f2d66ffef57fe0
     // Puedes redirigir al usuario o mostrar un mensaje de error
     $_SESSION['error'] = "No tienes permisos para eliminar proveedores.";
     header('Location: ver_proveedores.php');

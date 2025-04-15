@@ -18,10 +18,16 @@ $(document).ready(function() {
                 $('#tipo_documento').text(proveedor.tipo_documento);
                 $('#doc_proveedor').text(proveedor.doc_proveedor);
                 $('#nom_comercial').text(proveedor.nom_comercial);
+<<<<<<< HEAD
                 $('#nom_representante').text(proveedor.nom_representante);
                 $('#ape_representante').text(proveedor.ape_representante);
                 $('#correo').text(proveedor.correo);
                 $('#celular').text(proveedor.celular);
+=======
+                $('#nom_representante').text(proveedor.nom_representate);
+                $('#ape_representante').text(proveedor.ape_representante);
+                $('#correo').text(proveedor.correo);
+>>>>>>> 72767af5e883e4866ae4dfa157f2d66ffef57fe0
                 $('#tel_fijo').text(proveedor.tel_fijo);
                 $('#ciudad').text(proveedor.ciudad);
                 $('#direccion').text(proveedor.direccion);
@@ -149,4 +155,8 @@ $(document).on("click", ".verMasCliente", function(e) {
     $("#miModal").show(); // Aquí muestras el modal que ya tienes en HTML
 });
 
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 72767af5e883e4866ae4dfa157f2d66ffef57fe0
