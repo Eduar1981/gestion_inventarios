@@ -39,43 +39,68 @@ $categorias = $stmt->fetchAll(PDO::FETCH_OBJ);
 <aside class="aside active" id="aside">
         <div class="head">
             <div class="profile">
-                <img src="style/images/mundo_pink_perfil.jpg" alt="Logo" id="logo-img">
-                <p id="logo-name">Mundo pink</p>
+                <img src="style/images/logo_gestion.png" alt="Gestión de Inventario - Logo">
+                <p id="logo-name">Pilidev</p>   
             </div>
             <i class='bx bx-menu' id="menu"></i>
         </div>
         <div class="options">
-            <a id="" href="ver_ventas.php">
+            <a id="" href="ver_ventas.php" class="tooltip" data-tooltip="Ventas">
                 <div>
                     <i class='bx bx-receipt'></i>
                     <span class="option">Ventas</span>
                 </div>
             </a>
 
-            <a id="" href="ver_productos.php">
+            <a id="" href="ver_productos.php" class="tooltip" data-tooltip="Productos">
                 <div>
                     <i class='bx bx-package'></i>
                     <span class="option">Productos</span>
                 </div>
             </a>
 
-            <a id="" href="ver_categorias.php">
+            <a id="" href="ver_categorias.php" class="tooltip" data-tooltip="Categorias">
                 <div>
                     <i class='bx bx-category-alt'></i>
                     <span class="option">Categorias</span>
                 </div>
             </a>
+
+            <a id="" href="ver_clientes.php" class="tooltip" data-tooltip="Clientes">
+                <div>
+                    <i class='bx bx-group'></i>
+                    <span class="option">Clientes</span>
+                </div>
+            </a>
             
             <?php if ($_SESSION['rol'] === 'superadmin' || $_SESSION['rol'] === 'administrador') : ?>
-                <a id="" href="ver_usuarios.php">
+                <a id="" href="ver_proveedores.php" class="tooltip" data-tooltip="Proveedores">
+                    <div>
+                        <i class='bx bxs-truck'></i>
+                        <span class="option">Proveedores</span>
+                    </div>
+                </a>
+            <?php endif; ?>
+
+            <?php if ($_SESSION['rol'] === 'superadmin' || $_SESSION['rol'] === 'administrador') : ?>
+                <a id="" href="ver_compras_proveedores.php" class="tooltip" data-tooltip="Compras">
+                    <div>
+                        <i class='bx bxs-package'></i>
+                        <span class="option">Compras Porveedores</span>
+                    </div>
+                </a>
+            <?php endif; ?>
+            
+            <?php if ($_SESSION['rol'] === 'superadmin' || $_SESSION['rol'] === 'administrador') : ?>
+                <a id="" href="ver_usuarios.php" class="tooltip" data-tooltip="Usuarios">
                     <div>
                         <i class='bx bx-user'></i>
                         <span class="option">Usuarios</span>
                     </div>
                 </a>
             <?php endif; ?>
-            
-            <a class="links" href="logout.php">
+
+            <a class="links tooltip" href="logout.php"  data-tooltip="Cerrar sesión">
                 <div>
                     <i class='bx bx-log-out'></i>
                     <span class="option">Cerrar sesión</span>
@@ -100,6 +125,14 @@ $categorias = $stmt->fetchAll(PDO::FETCH_OBJ);
                 </a>
             <?php endif; ?>
         </section>
+
+        <section id="opciones">
+            <div id="buscar_cat" class="campos">                
+                <i class='bx bx-search-alt-2' ></i>
+                <input type="text" id="buscarCategoria" placeholder="Busca código o nombre..." autocomplete="off">
+            </div>
+        </section>
+
         
         <section id="datos">
 
@@ -109,7 +142,7 @@ $categorias = $stmt->fetchAll(PDO::FETCH_OBJ);
                 <?php unset($_SESSION['mensaje']); // Borrar mensaje ?>
             <?php endif; ?>
 
-            <input type="text" id="buscarCategoria" placeholder="Busca código o nombre..." autocomplete="off">
+           
             
           
             <table id="datos_categoria">

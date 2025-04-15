@@ -74,7 +74,7 @@ figure img{
 p#logo-name{
     margin-left: 10px;
     font-weight: bold;
-    color: #F54CBF;
+    color: #2F80ED;
 }
 
 /* Botón del menú */
@@ -199,4 +199,33 @@ section#barra {
     .aside.active ~ main {
         margin-left: 50px;
     }
+}
+
+/* ----- estilos de los tooltip */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    bottom: 120%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
 }

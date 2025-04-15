@@ -553,4 +553,178 @@ function formatearNumeroCOP(numero) {
 function formatearInput(valor) {
     valor = valor.replace(/\D/g, ""); // Elimina todo lo que no sea número
     return new Intl.NumberFormat("es-CO").format(valor);
+};
+
+/* ------- Buscar y mostrar proveedores ---- */
+async function buscarProveedores(inputId, sugerenciasId) {
+    const input = document.getElementById(inputId);
+    const query = input.value.trim();
+    const sugerencias = document.getElementById(sugerenciasId);
+
+    if (query.length < 3) {
+        sugerencias.innerHTML = '';
+        sugerencias.classList.remove('mostrar');
+        return;
+    }
+
+    try {
+        const response = await fetch(`obtener_proveedores.php?query=${encodeURIComponent(query)}`);
+        if (!response.ok) throw new Error('Error al obtener los proveedores');
+
+        const proveedores = await response.json();
+        sugerencias.innerHTML = '';
+
+        if (proveedores.length > 0) {
+            proveedores.forEach(proveedor => {
+                const div = document.createElement('div');
+                div.classList.add('sugerencia');
+                div.style.cursor = 'pointer';
+                div.innerHTML = `<strong>${proveedor.nom_comercial}</strong>`;
+                div.onclick = () => seleccionarProveedor(inputId, proveedor.nom_comercial, proveedor.doc_proveedor, sugerenciasId);
+                sugerencias.appendChild(div);
+            });
+            sugerencias.classList.add('mostrar');
+        } else {
+            sugerencias.innerHTML = '<div class="sin-resultados">No se encontraron proveedores</div>';
+            sugerencias.classList.add('mostrar');
+        }
+    } catch (error) {
+        sugerencias.innerHTML = '<div class="error">Error al buscar proveedores</div>';
+        sugerencias.classList.add('mostrar');
+    }
 }
+
+function seleccionarProveedor(inputId, nombreProveedor, docProveedor, sugerenciasId) {
+    const input = document.getElementById(inputId);
+    const hiddenInput = document.getElementById(`${inputId}-hidden`);
+    const sugerencias = document.getElementById(sugerenciasId);
+
+    input.value = nombreProveedor;
+    hiddenInput.value = docProveedor;
+
+    sugerencias.innerHTML = '';
+    sugerencias.classList.remove('mostrar');
+    sugerencias.style.display = 'none';
+};
+
+/* ----- Script para el modal de registrar nuevo Proveedor ------- */
+document.addEventListener('DOMContentLoaded', function() {
+    // Reiniciar el estado del modal al cargar la página
+    const modal = document.getElementById('nuevoProveedorModal');
+    if (modal) {
+        modal.removeAttribute('style');
+        modal.classList.add('fade');
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden', 'true');
+    }
+    
+    // Añadir event listener al botón para registrar proveedor
+    const btnRegistrar = document.getElementById('registrar_proveedor_ajax');
+    if (btnRegistrar) {
+        btnRegistrar.addEventListener('click', (e) => {
+            e.preventDefault(); // Importante: prevenir el envío del formulario
+            
+            const boton = e.target;
+            boton.disabled = true; // Desactiva el botón temporalmente
+
+            const nom_comercial = document.querySelector('input[name="nom_comercial"]').value.trim();
+            const tipo_persona = document.querySelector('select[name="tipo_persona"]').value.trim();
+            const nom_representante = document.querySelector('input[name="nom_representante"]').value.trim();
+            const ape_representante = document.querySelector('input[name="ape_representante"]').value.trim();
+            const tipo_documento = document.querySelector('select[name="tipo_documento"]').value.trim();
+            const doc_proveedor = document.querySelector('input[name="documento"]').value.trim();
+            const ciudad = document.querySelector('input[name="ciudad"]').value.trim();
+            const direccion = document.querySelector('input[name="direccion"]').value.trim();
+            const celular = document.querySelector('input[name="celular"]').value.trim();
+            const tel_fijo = document.querySelector('input[name="tel_fijo"]').value.trim();
+            const correo = document.querySelector('input[name="correo"]').value.trim();
+
+            if (nom_comercial && tipo_persona && nom_representante && ape_representante && tipo_documento && doc_proveedor && ciudad && direccion && celular && tel_fijo && correo) {
+                // Realiza la solicitud AJAX para registrar el proveedor
+                /* console.log("🟢 Datos que se enviarán al servidor:");
+                console.log({
+                    nom_comercial,
+                    tipo_persona,
+                    nom_representante,
+                    ape_representante,
+                    tipo_documento,
+                    documento: doc_proveedor,
+                    ciudad,
+                    direccion,
+                    celular,
+                    tel_fijo,
+                    correo
+                }); */
+
+                fetch('registrar_nuevo_proveedor.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({ 
+                        nom_comercial, 
+                        tipo_persona, 
+                        nom_representante, 
+                        ape_representante, 
+                        tipo_documento, 
+                        documento: doc_proveedor, 
+                        ciudad, 
+                        direccion, 
+                        celular, 
+                        tel_fijo, 
+                        correo 
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message); // Mostrar mensaje de éxito
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('nuevoProveedorModal'));
+                        modal.hide(); // Cierra el modal
+
+                        // Limpia los campos del modal después del registro
+                        document.querySelector('input[name="nom_comercial"]').value = '';
+                        document.querySelector('select[name="tipo_persona"]').value = '';
+                        document.querySelector('input[name="nom_representante"]').value = '';
+                        document.querySelector('input[name="ape_representante"]').value = ''; 
+                        document.querySelector('select[name="tipo_documento"]').value = '';
+                        document.querySelector('input[name="documento"]').value = '';
+                        document.querySelector('input[name="ciudad"]').value = '';
+                        document.querySelector('input[name="direccion"]').value = '';
+                        document.querySelector('input[name="celular"]').value = '';
+                        document.querySelector('input[name="tel_fijo"]').value = '';
+                        document.querySelector('input[name="correo"]').value = '';
+                    } else {
+                        alert(data.message); // Mostrar mensaje de error
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error); 
+                    alert('Ocurrió un error al registrar el proveedor.');
+                })
+                .finally(() => {
+                    boton.disabled = false; // Reactiva el botón después de la solicitud
+                });
+            } else {
+                alert('Por favor, completa todos los campos.');
+                boton.disabled = false; // Reactiva el botón si los campos están vacíos
+            }
+        });
+    }
+
+    // Solución adicional si persiste el problema
+    // Elimina esto si no es necesario
+    const fixModal = () => {
+        const modalContainer = document.getElementById('nuevoProveedorModal');
+        if (modalContainer && modalContainer.hasAttribute('style') && 
+            modalContainer.style.display === 'block' && 
+            !modalContainer.classList.contains('show')) {
+            
+            modalContainer.removeAttribute('style');
+            modalContainer.setAttribute('aria-hidden', 'true');
+        }
+    };
+    
+    // Ejecutar la corrección después de un breve retraso
+    setTimeout(fixModal, 100);
+});

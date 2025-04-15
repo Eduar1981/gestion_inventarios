@@ -27,7 +27,46 @@
             }
  */
 
+/* ------------------------------------------------------------- */
+section#opciones{
+    display: flex;
+    justify-content: flex-end;
+}
 
+div#buscar_user{
+    margin: 10px;
+    position: relative;
+    width: 95%;
+    display: flex;
+    justify-content: flex-end;
+
+}
+button#btn_buscador{
+    display: none;
+}
+    #buscar_user > i{
+        border-radius: 10%;
+        color: #2F80ED;
+        font-size: 22px;
+        left: 21%;
+        padding: 7px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 3;
+}
+
+div#buscar_user input#buscarUsuario{
+    width: 80%;
+    padding: 1em 1em 1em 45px;
+    font-size: 14px;
+    border: 1px solid #E4E7EC;
+    border-radius: 5px;
+    background: #fff;
+    transition: border 0.3s;
+    margin: 0;    
+
+}
  section#datos {
     background: #fff;
     padding: 0;

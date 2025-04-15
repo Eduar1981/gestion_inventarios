@@ -16,8 +16,8 @@
     <aside class="aside active" id="aside">
         <div class="head">
             <div class="profile">
-                <img src="style/images/mundo_pink_perfil.jpg" alt="Logo" id="logo-img">
-                <p id="logo-name">Mundo pink</p>
+                <img src="style/images/logo_gestion.png" alt="Gestión de Inventario - Logo">
+                <p id="logo-name">Pilidev</p>
             </div>
             <i class='bx bx-menu' id="menu"></i>
         </div>
@@ -40,6 +40,13 @@
                 <div>
                     <i class='bx bx-category-alt'></i>
                     <span class="option">Categorias</span>
+                </div>
+            </a>
+
+            <a id="" href="ver_clientes.php">
+                <div>
+                    <i class='bx bx-group'></i>
+                    <span class="option">Clientes</span>
                 </div>
             </a>
             
@@ -140,7 +147,7 @@
 
                     </div>
                     
-                <!-- Campo "Recibido" (se muestra solo si se elige "Efectivo") -->
+                    <!-- Campo "Recibido" (se muestra solo si se elige "Efectivo") -->
                     <div id="campoRecibido" style="display: none;">
                         <label for="recibido">Recibido: </label>
                         <input type="text" id="recibido" inputmode="numeric" placeholder="Monto recibido">
@@ -151,10 +158,11 @@
                         <label for="descuento">Descuento (%): </label>
                         <input type="number" id="descuento" min="0" max="100" step="1" value="" inputmode="numeric" placeholder="%">
                     </div>
+                </div>
 
                     <!-- Mostrar resumen con descuento -->
                     <div id="resumenDescuento" style="display: none;">
-                        <p>Subtotal: <span id="subtotalAntesDescuento">0.00</span></p>
+                        <p id="total_precio">Subtotal: <span id="subtotalAntesDescuento">0.00</span></p>
                         <p>Descuento: <span id="valorDescuento">0.00</span></p>
                         <p class="total-con-descuento">Total con descuento: <span id="totalConDescuento">0.00</span></p>
                     </div>
@@ -165,7 +173,7 @@
                     </div>
 
                     
-                </div>
+                
             </div>
 
             <button id="finalizarCompra" tabindex="5">CONFIRMAR</button>

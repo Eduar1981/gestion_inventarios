@@ -72,8 +72,8 @@ if (!isset($_SESSION['rol']) || ($_SESSION['rol'] !== 'superadmin' && $_SESSION[
 <aside class="aside active" id="aside">
         <div class="head">
             <div class="profile">
-                <img src="style/images/mundo_pink_perfil.jpg" alt="Logo" id="logo-img">
-                <p id="logo-name">Mundo pink</p>
+                <img src="style/images/logo_gestion.png" alt="Gestión de Inventario - Logo">
+                <p id="logo-name">Pilidev</p>   
             </div>
             <i class='bx bx-menu' id="menu"></i>
         </div>
@@ -96,6 +96,13 @@ if (!isset($_SESSION['rol']) || ($_SESSION['rol'] !== 'superadmin' && $_SESSION[
                 <div>
                     <i class='bx bx-category-alt'></i>
                     <span class="option">Categorias</span>
+                </div>
+            </a>
+
+            <a id="" href="ver_clientes.php">
+                <div>
+                    <i class='bx bx-group'></i>
+                    <span class="option">Clientes</span>
                 </div>
             </a>
             

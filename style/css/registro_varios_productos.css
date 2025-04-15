@@ -171,9 +171,25 @@ button#eliminar i{
     button#new_categoria:hover {
         background-color: #D1D5DB;
     }
-    
 
 
+    /* ------boton nuevo proveedor ----- */
+
+button#new_proveedor {
+    background-color: #E4E7EC;
+    color: #2F80ED;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+button#new_proveedor:hover {
+    background-color: #D1D5DB;
+}
 
 
 /* -----------------contenedor de sugerencias de categoria------------- */
@@ -232,6 +248,17 @@ div#campo_categoria .sugerencias {
 .btn_categoria:hover {
     background-color: #D1D5DB;
 }
+
+.btn_proveedor{
+    background-color: #E1E4E9;
+    color: #2979FF;
+    font-size: 14px;
+}
+
+.btn_proveedor:hover {
+    background-color: #D1D5DB;
+}
+
 /* ----------------RESPONSIVE------------ */
 @media (max-width: 600px) {
     form {

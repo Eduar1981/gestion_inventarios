@@ -79,8 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <aside class="aside active" id="aside">
         <div class="head">
             <div class="profile">
-                <img src="style/images/mundo_pink_perfil.jpg" alt="Logo" id="logo-img">
-                <p id="logo-name">Mundo pink</p>
+                <img src="style/images/logo_gestion.png" alt="Gestión de Inventario - Logo">
+                <p id="logo-name">Pilidev</p>
             </div>
             <i class='bx bx-menu' id="menu"></i>
         </div>

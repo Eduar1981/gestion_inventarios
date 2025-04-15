@@ -12,13 +12,13 @@ $rol_usuario = $_SESSION['rol'];
 
 $estado = 'activo';
 $stmt = $pdo->prepare('
-    SELECT `contador_clientes`, CONCAT(`nombre`," ", `apellido`) AS nombre, `celular`, `correo` FROM `clientes` WHERE `estado` = :activo 
-    ORDER BY `contador_clientes` DESC
+    SELECT `cont_provee`, CONCAT(`nom_representante`," ", `ape_representante`) AS nombre, `celular`, `correo` FROM `proveedores` WHERE `estado` = :activo 
+    ORDER BY `cont_provee` DESC
     LIMIT 15' );
 $stmt->bindParam(':activo', $estado);
 $stmt->execute();
 
-$clientes = $stmt->fetchAll(PDO::FETCH_OBJ);
+$proveedores = $stmt->fetchAll(PDO::FETCH_OBJ);
 ?>
 
 <!DOCTYPE html>
@@ -32,10 +32,10 @@ $clientes = $stmt->fetchAll(PDO::FETCH_OBJ);
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <script src="js/menu.js"></script>
     <link rel="stylesheet" href="style/css/menu.css">
-    <link rel="stylesheet" href="style/css/ver_clientes.css">
+    <link rel="stylesheet" href="style/css/ver_proveedores.css">
 </head>
 <body>
-<aside class="aside active" id="aside">
+    <aside class="aside active" id="aside">
         <div class="head">
             <div class="profile">
                 <img src="style/images/logo_gestion.png" alt="Gestión de Inventario - Logo">
@@ -107,29 +107,19 @@ $clientes = $stmt->fetchAll(PDO::FETCH_OBJ);
             </a>
         </div>     
     </aside>
-    
+
     <main id="inicio">
         <section id="barra">
             <div id="atras">
                 <a href="home.php">
                     <i class='bx bx-home-heart'></i>
                 </a>
-                <h4>Listado de clientes</h4>
+                <h4>Listado de Proveedores</h4>
+                <a href="registrar_proveedor.php">
+                    <p>Registrar Proveedor</p>
+                </a>
             </div>  
-
-            <a id="add_cliente" href="registrar_cliente.php">
-                <i class='bx bx-plus-circle'></i>
-                <p>Nuevo Cliente</p>
-            </a>
         </section>
-
-        <section id="opciones">
-            <div id="buscar_client" class="campos">                
-                <i class='bx bx-search-alt-2' ></i>
-                <input type="text" id="buscarCliente" placeholder="Busca documento o nombre..." autocomplete="off">
-            </div>
-        </section>
-       
         
         <section id="datos">
 
@@ -139,9 +129,9 @@ $clientes = $stmt->fetchAll(PDO::FETCH_OBJ);
                 <?php unset($_SESSION['mensaje']); // Borrar mensaje ?>
             <?php endif; ?>
 
-           
+            <input type="text" id="buscarProveedor" placeholder="Busca documento o nombre..." autocomplete="off">
 
-            <table id="datos_cliente">
+            <table id="datos_proveedor">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -152,20 +142,20 @@ $clientes = $stmt->fetchAll(PDO::FETCH_OBJ);
                         <th>Info</th>
                     </tr>
                 </thead>
-                <tbody id="tablaClientes">
-                    <?php if ($clientes): ?>
-                        <?php foreach ($clientes as $cliente): ?>
+                <tbody id="tablaProveedores">
+                    <?php if ($proveedores): ?>
+                        <?php foreach ($proveedores as $proveedor): ?>
                             <tr>
-                                <td><?= htmlspecialchars($cliente->nombre) ?></td>
-                                <td><?= htmlspecialchars($cliente->celular) ?></td>
-                                <td><?= htmlspecialchars($cliente->correo) ?></td>
+                                <td><?= htmlspecialchars($proveedor->nombre) ?></td>
+                                <td><?= htmlspecialchars($proveedor->celular) ?></td>
+                                <td><?= htmlspecialchars($proveedor->correo) ?></td>
                                 
                                 
                                 <td>
                                     <!-- Mostrar botones solo si el usuario tiene rol de administrador -->
                                     <?php if ($_SESSION['rol'] === 'superadmin' || $_SESSION['rol'] === 'administrador'): ?>
                                         <!-- Botón para editar -->
-                                        <a href="editar_cliente.php?contador_clientes=<?= $cliente->contador_clientes ?>">
+                                        <a href="editar_proveedor.php?cont_provee=<?= $proveedor->cont_provee ?>">
                                             <i class="lni lni-pencil"></i>
                                         </a>
                                     <?php else: ?>
@@ -174,9 +164,9 @@ $clientes = $stmt->fetchAll(PDO::FETCH_OBJ);
                                     <td>
                                     <?php if ($_SESSION['rol'] === 'superadmin' || $_SESSION['rol'] === 'administrador'): ?>
                                         <!-- Botón para eliminar -->
-                                        <a href="eliminar_cliente.php?contador_clientes=<?= htmlspecialchars($cliente->contador_clientes) ?>" 
+                                        <a href="eliminar_proveedor.php?cont_provee=<?= htmlspecialchars($proveedor->cont_provee) ?>" 
                                         title="Eliminar" 
-                                        onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">
+                                        onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?');">
                                             <i class="lni lni-trash-can"></i>
                                         </a>
                                     <?php else: ?>
@@ -185,44 +175,39 @@ $clientes = $stmt->fetchAll(PDO::FETCH_OBJ);
                                     </td>
                                     
                                     <td>
-                                        <a href="#" class="verMasCliente" data-id="<?= $cliente->contador_clientes ?>">
+                                        <a href="#" class="verMasProveedor" data-id="<?= $proveedor->cont_provee ?>">
                                             <i class='bx bx-plus-circle'></i>
                                         </a>
                                     </td>
 
-                                        
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="7">Aun no hay clientes para mostrar</td>
+                            <td colspan="7">Aun no hay proveedores para mostrar</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
         </section>
 
-        <!-- Modal para mostrar detalles del cliente -->
-        <div id="modalCliente" style="display:none;">
+        <!-- Modal para mostrar detalles del proveedor -->
+        <div id="modalProveedor" style="display:none;">
             <div id="contenidoModal">
                 <span id="cerrarModal">&times;</span>
-                <h3>Detalles del Cliente</h3>
+                <h3>Detalles del Proveedor</h3>
+                <p><strong>Nombre Comercial:</strong> <span id="nom_comercial"></span></p>
                 <p><strong>Tipo de Persona:</strong> <span id="tipo_persona"></span></p>
                 <p><strong>Tipo de Documento:</strong> <span id="tipo_documento"></span></p>
-                <p><strong>Documento:</strong> <span id="documento"></span></p>
-                <p><strong>Nombre:</strong> <span id="nombre"></span></p>
-                <p><strong>Apellido:</strong> <span id="apellido"></span></p>
-                <p><strong>Correo:</strong> <span id="correo"></span></p>
-                <p><strong>Fecha de Nacimiento:</strong> <span id="fecha_nacimiento"></span></p>
+                <p><strong>Documento:</strong> <span id="doc_proveedor"></span></p>
+                <p><strong>Telefono Fijo:</strong> <span id="tel_fijo"></span></p>
                 <p><strong>Ciudad:</strong> <span id="ciudad"></span></p>
                 <p><strong>Dirección:</strong> <span id="direccion"></span></p>
-                <p><strong>Nombre Comercial:</strong> <span id="nom_comercial"></span></p>
             </div>
         </div>
     </main>
 
-
-<script src="js/funciones_ver_clientes.js"></script>
+<script src="js/funciones_ver_proveedores.js"></script>
 </body>
 </html>

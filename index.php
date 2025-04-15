@@ -19,7 +19,7 @@ error_reporting(E_ALL);
         <div id="principal">
             <section id="logo">
                 <figure id="img">
-                    <img src="style/images/mundo_pink_perfil.jpg" alt="Mundo Pink">
+                    <img src="style/images/logo_gestion.png" alt="Gestión de Inventario - Logo">
                 </figure>
             </section>
 

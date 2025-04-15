@@ -5,7 +5,7 @@ session_start();
 header('Content-Type: application/json');
 
 // Verificar sesión
-if (!isset($_SESSION['documento']) || $_SESSION['rol'] !== 'administrador') {
+if (!isset($_SESSION['documento']) || !in_array($_SESSION['rol'], ['superadmin', 'administrador'])) {
     echo json_encode(['success' => false, 'message' => 'No tienes permisos para realizar esta acción.']);
     exit;
 }

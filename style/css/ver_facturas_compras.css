@@ -1,4 +1,6 @@
-a#add_categoria{
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+a#add_factura{
     display: flex;
     justify-content: space-between;
     font-size: 1.2em;
@@ -10,42 +12,42 @@ a#add_categoria{
     align-items: center;
 }
 
-    a#add_categoria:hover{
+    a#add_factura:hover{
         background-color:#2F80ED;
     }
 
-    a#add_categoria i{
+    a#add_factura i{
         margin: 0 6px 0 0;
         font-size: 1.2em;
     }
 
-    a#add_categoria p{
+    a#add_factura p{
         font-size: 15px;
         margin: 0;
     }
 
-/* ------------------------------------------------------------- */
+/* -------------------------------------------------------- */
 section#opciones{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
-
-div#buscar_cat{
+div#buscar_prod{
+    width: 80%;
+}
+div#buscador_fact{
     margin: 10px;
     position: relative;
     width: 95%;
-    display: flex;
-    justify-content: flex-end;
 
 }
 button#btn_buscador{
     display: none;
 }
-    #buscar_cat > i{
+    #buscador_fact > i{
         border-radius: 10%;
         color: #2F80ED;
         font-size: 22px;
-        left: 21%;
+        left: 7px;
         padding: 7px;
         position: absolute;
         top: 50%;
@@ -53,8 +55,8 @@ button#btn_buscador{
         z-index: 3;
 }
 
-div#buscar_cat input#buscarCategoria{
-    width: 80%;
+div#buscador_fact input#factura{
+    width: 100%;
     padding: 1em 1em 1em 45px;
     font-size: 14px;
     border: 1px solid #E4E7EC;
@@ -65,46 +67,49 @@ div#buscar_cat input#buscarCategoria{
 
 }
 
+
+
 /* -------------------------------------------------------- */
 section#datos {
     background: #fff;
     padding: 0;
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    
 }
 
 /* ------------------------------------------------------------- */
-table#datos_categoria {
+table#datos_facturas {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 30px;
+    margin-top: 25px;
 }
 
-    table#datos_categoria th {
+    table#datos_facturas th {
         background: #F3F4F6;
         font-size: 14px;
         color: #555;
         text-transform: uppercase;
     }
 
-    table#datos_categoria td {
+    table#datos_facturas td {
         font-size: 15px;
         color: #333;
     }
 
-    table#datos_categoria th,
-    table#datos_categoria td {
+    table#datos_facturas th,
+    table#datos_facturas td {
         padding: 12px 15px;
         text-align: left;
         border-bottom: 1px solid #E4E7EC;
         text-transform: capitalize;
     }
 
-table#datos_categoria tr:hover {
+table#datos_facturas tr:hover {
     background: #F9FAFB;
 }
 
-table#datos_categoria a {
+table#datos_facturas a {
     text-decoration: none;
     color: #2F80ED;
     font-size: 16px;
@@ -118,41 +123,20 @@ table#datos_categoria a {
     transition: background 0.3s, transform 0.2s;
 }
 
-table#datos_categoria a:hover {
+table#datos_facturas a:hover {
     background: #D1D5DB;
     transform: scale(1.1);
 }
 
-table#datos_categoria i {
+table#datos_facturas i {
     font-size: 20px;
 }
 
-#sugerencias {
-    position: absolute;
-    background: white;
-    border: 1px solid #ccc;
-    max-height: 200px;
-    overflow-y: auto;
-    width: 250px;
-    z-index: 1000;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-}
-
-.sugerencia {
-    padding: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    border-bottom: 1px solid #ddd;
-}
-
-.sugerencia:hover {
-    background: #007bff;
-    color: white;
-}
 
 
-/* ------------------responsive-------------------- */
 
+
+/* ----------------responsive-------------- */
 @media (max-width: 550px) {
 
     section#barra {
@@ -166,10 +150,10 @@ table#datos_categoria i {
         }
 
         div#atras h4 {
-            font-size: 18px; 
+            font-size: 23px; 
         }
 
-        a#add_cliente{
+        a#add_factura{
             font-size: 1em;
             padding: 8px;
             left: 50%;
@@ -180,17 +164,17 @@ table#datos_categoria i {
             overflow-x: auto; /* Agrega scroll horizontal */
         }
 
-        #datos_categoria th, #datos_categoria td {
+        #datos_facturas th, #datos_facturas td {
             padding: 8px;
             font-size: 12px; 
         }
     
-        table#datos_categoria th {
+        table#datos_facturas th {
             text-transform: none; /* Evitar texto completamente en mayúsculas */
         }
     
         /* iconos */
-        table#datos_categoria a {
+        table#datos_facturas a {
             width: 30px;
             height: 30px;
             font-size: 16px;
@@ -200,3 +184,93 @@ table#datos_categoria i {
 
 
 
+
+/* Estilos del modal */
+#modalFactura {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 3;
+}
+#contenidoModal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+#contenidoModal h3{
+    color: #2F80ED;
+    font-family: "Nunito Sans", serif;
+    text-align: center;
+    margin: 10px 0;
+
+}
+#contenidoModal p{
+    margin: 4px;
+    color: #333;
+}
+
+#contenidoModal span{
+    color: #333;
+    font-weight: bold;
+    margin: 0 0 0 6px;
+}
+
+#contenidoModal span#correo{
+    text-transform:inherit;
+}
+
+#cerrarModal {
+    float: right;
+    cursor: pointer;
+    font-size: 1.8em;
+}
+
+/* ------Estilos para las Descargas -------- */
+.descargar-pdf button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+}
+
+.descargar-pdf button:hover {
+    background-color: #45a049;
+}
+
+.alert {
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+@media (max-width: 500px) {
+    #contenidoModal {
+        width: 85%;
+    }
+}

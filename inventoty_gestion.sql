@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-04-2025 a las 00:05:26
+-- Tiempo de generación: 08-04-2025 a las 02:01:47
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `gestion_pink`
+-- Base de datos: `inventoty_gestion`
 --
 
 -- --------------------------------------------------------
@@ -132,7 +132,25 @@ CREATE TABLE `clientes` (
 INSERT INTO `clientes` (`contador_clientes`, `tipo_persona`, `tipo_documento`, `documento`, `nombre`, `apellido`, `fecha_nacimiento`, `celular`, `correo`, `ciudad`, `direccion`, `nom_comercial`, `cont_venta`, `tiempo_registro`, `documento_operador`, `estado`) VALUES
 (1, 'Natural', 'Cedula de Ciudadania', '94477540', 'Eduar Hernan', 'Grisalez', '1981-09-04', '3186941522', 'edcorgris@gmail.com', 'Guadalajara ', 'Calle 8#7e-04', 'chonna iot soluctions', 0, '2025-03-21 17:12:10', '94477540', 'activo'),
 (2, 'Natural', 'Cedula de Ciudadania', '16385007', 'gildardo', 'hernandez', '2000-06-03', '3163456677', 'gildardo@gmail.com', 'Guadalajara ', 'Calle 8#7e-04', 'el paisa', 0, '2025-03-21 17:41:35', '94477540', 'activo'),
-(3, 'natural', 'Cedula de Ciudadania', '1107039439', '', '', '0000-00-00', '', 'distrilasas@gmail.com', '', '', 'Distribuidora la SAS', 112, '2025-03-27 15:12:13', '94477540', 'activo');
+(3, 'natural', 'Cedula de Ciudadania', '1107039439', '', '', '0000-00-00', '', 'distrilasas@gmail.com', '', '', 'Distribuidora la SAS', 112, '2025-03-27 15:12:13', '94477540', 'activo'),
+(4, 'natural', 'Cedula de Ciudadania', '94477540', '', '', '0000-00-00', '', 'edcorgris@gmail.com', '', '', 'chonna motors', 112, '2025-04-04 15:40:04', '94477540', 'activo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cotizaciones`
+--
+
+CREATE TABLE `cotizaciones` (
+  `cont_cotizaciones` int(11) NOT NULL,
+  `codigo_cotizacion` varchar(10) NOT NULL,
+  `doc_cliente` varchar(12) NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
+  `documento_operador` varchar(12) NOT NULL,
+  `tiempo_registro` datetime NOT NULL,
+  `estado` varchar(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -324,6 +342,23 @@ INSERT INTO `detalle_venta` (`cont_detalle_venta`, `cont_venta`, `cont_producto`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `factura_compra_proveedores`
+--
+
+CREATE TABLE `factura_compra_proveedores` (
+  `cont_fact_compra` int(11) NOT NULL,
+  `num_fact_comp` varchar(10) NOT NULL,
+  `codigo_producto` varchar(10) DEFAULT NULL,
+  `fecha_compra` date DEFAULT NULL,
+  `precio_compra_total` float NOT NULL,
+  `registro_tiempo` datetime DEFAULT NULL,
+  `documento_operador` varchar(10) DEFAULT NULL,
+  `estado` varchar(8) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `productos`
 --
 
@@ -379,6 +414,31 @@ INSERT INTO `productos` (`cont_producto`, `codigo_producto`, `referencia`, `nomb
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `proveedores`
+--
+
+CREATE TABLE `proveedores` (
+  `cont_provee` int(11) NOT NULL,
+  `nom_comercial` varchar(100) NOT NULL,
+  `tipo_persona` varchar(50) NOT NULL,
+  `tipo_documento` varchar(50) NOT NULL,
+  `doc_proveedor` varchar(12) NOT NULL,
+  `nom_representante` varchar(50) NOT NULL,
+  `ape_representante` varchar(50) NOT NULL,
+  `celular` varchar(10) NOT NULL,
+  `tel_fijo` varchar(10) DEFAULT NULL,
+  `correo` varchar(50) NOT NULL,
+  `direccion` varchar(56) NOT NULL,
+  `ciudad` varchar(12) NOT NULL,
+  `num_fact_comp` varchar(10) NOT NULL,
+  `tiempo_registro` datetime NOT NULL,
+  `documento_operador` varchar(12) NOT NULL,
+  `estado` varchar(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -408,9 +468,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`contador_usuarios`, `tipo_doc`, `documento`, `nombre`, `apellido`, `fecha_nacimiento`, `celular`, `ciudad`, `direccion`, `rol`, `correo`, `contra`, `documento_operador`, `tiempo_registro`, `reset_token`, `token_expiration`, `estado`, `fec_ult_sesion`) VALUES
-(1, 'Cedula de Ciudadania', '94477540', 'eduar', 'corrales', '1981-09-04', '3186941522', 'buga', 'carrera 8 # 13-11', 'superadmin', 'edcorgris@gmail.com', '$2y$10$ZXpNRRUWrq3IggyWzvemHez8eDKvO0g5LE68J7MBBd1rCUaGa7j7.', '', '2025-03-10 20:53:24', '', '0000-00-00 00:00:00', 'activo', '2025-03-26 22:43:30'),
-(2, 'Cedula de Ciudadania', '1112388921', 'nicol', 'motoa', '2004-09-28', '3174900224', 'buga', 'carrera 8 # 13-11', 'superadmin', 'dahyanna.me@gmail.com', '$2y$10$2M5.U/2xYORn0dyyCkUtKuTB8zauuBo5pQpQTHv0MHvexZ2CFFNXy', '', '2025-03-13 14:34:40', '', '0000-00-00 00:00:00', 'activo', '2025-03-19 01:20:56'),
-(3, 'Cedula de Ciudadania', '1112401370', 'sahian', 'motoa', '2004-09-08', '3112345678', 'buga', 'calle 8 #7-58', 'vendedor', 'sahianmotoa@gmail.com', '$2y$10$IWHVmVlsBzefAyVr1q6P/.DWgxWm5Hn2HnmCOKhKYtIp.HY55pDPG', '', '2025-03-13 14:47:37', '', '0000-00-00 00:00:00', 'activo', '2025-03-13 21:03:02'),
+(1, 'Cedula de Ciudadania', '94477540', 'eduar', 'corrales', '1981-09-04', '3186941522', 'buga', 'carrera 8 # 13-11', 'superadmin', 'edcorgris@gmail.com', '$2y$10$ZXpNRRUWrq3IggyWzvemHez8eDKvO0g5LE68J7MBBd1rCUaGa7j7.', '', '2025-03-10 20:53:24', '', '0000-00-00 00:00:00', 'activo', '2025-04-08 01:59:31'),
+(2, 'Cedula de Ciudadania', '1112388921', 'nicol', 'motoa', '2004-09-28', '3174900224', 'buga', 'carrera 8 # 13-11', 'superadmin', 'dahyanna.me@gmail.com', '$2y$10$2M5.U/2xYORn0dyyCkUtKuTB8zauuBo5pQpQTHv0MHvexZ2CFFNXy', '', '2025-03-13 14:34:40', '', '0000-00-00 00:00:00', 'inactivo', '2025-03-19 01:20:56'),
+(3, 'cedula de ciudadania', '1112401370', 'sahyan', 'motoa echeverry', '2004-09-08', '3112345678', 'buga', 'calle 8 #7-58', 'vendedor', 'sahianmotoa@gmail.com', '$2y$10$IWHVmVlsBzefAyVr1q6P/.DWgxWm5Hn2HnmCOKhKYtIp.HY55pDPG', '', '2025-03-13 14:47:37', '', '0000-00-00 00:00:00', 'inactivo', '2025-03-13 21:03:02'),
 (4, 'Cedula de Ciudadania', '33750741', 'mateo', 'tafur', '1985-07-09', '3122175401', 'cali', 'diagnonal 11 # 14-15', 'administrador', 'mateo@gmail.com', '$2y$10$oLC4lKnWWkpL86D.QJvWuOf3Q8/L1JdU/8TkPP/n26q1lSpZ4FMia', '', '2025-03-13 20:09:26', '', '0000-00-00 00:00:00', 'activo', '2025-03-21 17:58:30');
 
 -- --------------------------------------------------------
@@ -573,6 +633,12 @@ ALTER TABLE `clientes`
   ADD PRIMARY KEY (`contador_clientes`);
 
 --
+-- Indices de la tabla `cotizaciones`
+--
+ALTER TABLE `cotizaciones`
+  ADD PRIMARY KEY (`cont_cotizaciones`);
+
+--
 -- Indices de la tabla `creditos`
 --
 ALTER TABLE `creditos`
@@ -585,10 +651,22 @@ ALTER TABLE `detalle_venta`
   ADD PRIMARY KEY (`cont_detalle_venta`);
 
 --
+-- Indices de la tabla `factura_compra_proveedores`
+--
+ALTER TABLE `factura_compra_proveedores`
+  ADD PRIMARY KEY (`cont_fact_compra`);
+
+--
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`cont_producto`);
+
+--
+-- Indices de la tabla `proveedores`
+--
+ALTER TABLE `proveedores`
+  ADD PRIMARY KEY (`cont_provee`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -622,7 +700,13 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `contador_clientes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `contador_clientes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `cotizaciones`
+--
+ALTER TABLE `cotizaciones`
+  MODIFY `cont_cotizaciones` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `creditos`
@@ -637,10 +721,22 @@ ALTER TABLE `detalle_venta`
   MODIFY `cont_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
 
 --
+-- AUTO_INCREMENT de la tabla `factura_compra_proveedores`
+--
+ALTER TABLE `factura_compra_proveedores`
+  MODIFY `cont_fact_compra` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
   MODIFY `cont_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT de la tabla `proveedores`
+--
+ALTER TABLE `proveedores`
+  MODIFY `cont_provee` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

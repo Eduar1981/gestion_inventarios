@@ -313,6 +313,23 @@ input#recibido:focus {
     background: #FFFFFF;
 }
 
+input#descuento{
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #E4E7EC;
+    border-radius: 5px;
+    background: #F9FAFB;
+    color: #333;
+    outline: none;
+    transition: border 0.3s, background 0.3s;
+}
+
+input#descuento:focus {
+    border-color: #2F80ED;
+    background: #FFFFFF;
+}
+
 #campoCambio {
     font-size: 16px;
     font-weight: bold;
@@ -321,7 +338,7 @@ input#recibido:focus {
     padding: 10px;
     border-radius: 5px;
     display: none;
-    margin-top: 10px;
+    margin: 10px 0;
     
 }
 
@@ -371,7 +388,14 @@ input#recibido:focus {
     background: #f0f0f0;
 }
 
+div#resumenDescuento{
+    color: #333;
+    font-weight: bold;
+}
 
+    p#total_precio{
+        display: none;
+    }
 @media (min-width: 700px) {
     section#datos{
         justify-content: space-between;
@@ -443,6 +467,13 @@ input#recibido:focus {
     div#campoRecibido{
         margin: 0 20px;
     }
+    div#resumenDescuento{
+        margin: 15px 0;
+    }
+
+        div#resumenDescuento p{
+            margin: 0;
+        }
     #finalizarCompra{
         max-width: 500px;
     }
